@@ -15,11 +15,14 @@ const (
 	dbname   = "jwt-authentication"
 )
 
-var DB *gorm.DB
+var (
+	DB  *gorm.DB
+	err error
+)
 
 func DatabaseConnection() *gorm.DB {
 	sqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	DB, err := gorm.Open(postgres.Open(sqlInfo), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(sqlInfo), &gorm.Config{})
 	if err != nil {
 		panic(err.Error())
 	}
